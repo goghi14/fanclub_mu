@@ -182,6 +182,7 @@ class Fanpage extends CI_Controller {
 				if($vid->type == "youtube") :
 					echo("<span class='fp-imagini-style'>
 						<a href='https://www.youtube.com/embed/". $vid->video_id ."' data-featherlight='iframe'>
+							<span class='delete-img'></span>
 							<span class='fp-imagini-descr'>". $vid->title ."</span>
 							<span class='video-hover'></span>
 							<img src='http://img.youtube.com/vi/". $vid->video_id ."/hqdefault.jpg' style='height: 161px;'/>
