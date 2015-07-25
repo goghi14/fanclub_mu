@@ -228,12 +228,14 @@
 			$(document).on("mouseover", ".fp-imagini-style", function() {
 				$(this).find(".fp-imagini-descr").slideDown(400);
 				$(this).find(".fp-imagini-zoom").fadeIn(400);
+				$(this).find(".delete-fp-item").fadeIn(300);
 			});
 		});
 		$(document).ready(function() {
 			$(document).on("mouseleave", ".fp-imagini-style", function() {
 				$(this).find(".fp-imagini-descr").slideUp(300);
 				$(this).find(".fp-imagini-zoom").fadeOut(300);
+				$(this).find(".delete-fp-item").fadeOut(200);
 			});
 		});
 
@@ -398,6 +400,24 @@
 		        });
 		        e.preventDefault();
 	    	});
+	  	});
+
+	  	$(document).ready(function(){
+		  	$('.delete-fp-item').click(function (e) {
+		        var id = $(this).data("id"),
+		        	item = $(this);
+		        e.preventDefault();
+		        if(confirm('Esti sigur ca vreai sa stergi aceasta imagine?')) {
+			        $.ajax({
+			            type: 'post',
+			            url: '/fanpage/deleteImagine',
+			            data: { item_id: id},
+	    		            success: function () {
+			                item.closest('.fp-imagini-style').fadeOut(300);
+			            }
+			        });
+			    }
+	     	});
 	  	});
 
 	  	$('#login-box').on("click", ":submit", function(e){

@@ -2262,6 +2262,14 @@ li p {
 	height: 115px;
 	cursor: pointer;
 }
+.delete-fp-item {
+	position: absolute;
+    width: 18px;
+    top: -6px;
+    right: -6px;
+    display: none;
+    z-index: 1111;
+}
 
 textarea,
 input[type=text] {

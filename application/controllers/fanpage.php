@@ -147,16 +147,19 @@ class Fanpage extends CI_Controller {
 			endif;
 		if($imagini) : 
 			foreach($imagini as $img) :
+				$delete_icn = "<span data-id='".$img->id."' class='delete-fp-item'><img src='" . base_url() . "resources/images/delete_btn.png' title='Șterge' /></span>";
 				if($img->image == "") :
-					$vsv = "<span class='fp-imagini-style'><a class='thumbnail gallery' href='" . $img->url . "'><img src='" . base_url() . "timthumb.php?src=" . $img->url . "&w=220&h=150' />
+					$img_display = "<span class='fp-imagini-style'><a class='thumbnail gallery' href='" . $img->url . "'><img src='" . base_url() . "timthumb.php?src=" . $img->url . "&w=220&h=150' />
+						" . ($user['id'] == $this->input->post('id_user') ? $delete_icn : "") . "
 						<span class='fp-imagini-descr'>".$img->description."</span>
 						<span class='fp-imagini-zoom'><img src='".base_url()."resources/images/zoom.png'></span></a></span>";
 				else :
-					$vsv = "<span class='fp-imagini-style'><a class='thumbnail gallery' href='" . base_url() . "resources/images/fanpage/" . $img->image . "'><img src='" . base_url() . "timthumb.php?src=" . base_url() . "resources/images/fanpage/" . $img->image . "&w=220&h=150' />
+					$img_display = "<span class='fp-imagini-style'><a class='thumbnail gallery' href='" . base_url() . "resources/images/fanpage/" . $img->image . "'><img src='" . base_url() . "timthumb.php?src=" . base_url() . "resources/images/fanpage/" . $img->image . "&w=220&h=150' />
+						" . ($user['id'] == $this->input->post('id_user') ? $delete_icn : "") . "
 						<span class='fp-imagini-descr'>".$img->description."</span>
 						<span class='fp-imagini-zoom'><img src='".base_url()."resources/images/zoom.png'></span></a></span>";
 				endif;
-				echo $vsv;
+				echo $img_display;
 			endforeach;
 		else : 
 			echo("<span class='fp-imagini-style'><a class='thumbnail gallery' href='" . base_url() . "resources/images/fanpage/no-fp-img.png'><img src='" . base_url() . "timthumb.php?src=" . base_url() . "resources/images/fanpage/no-fp-img.png&w=220&h=150' />
@@ -182,7 +185,7 @@ class Fanpage extends CI_Controller {
 				if($vid->type == "youtube") :
 					echo("<span class='fp-imagini-style'>
 						<a href='https://www.youtube.com/embed/". $vid->video_id ."' data-featherlight='iframe'>
-							<span class='delete-img'></span>
+							<span class='delete-img'><img src='" . base_url() . "resources/images/delete_btn.png' /></span>
 							<span class='fp-imagini-descr'>". $vid->title ."</span>
 							<span class='video-hover'></span>
 							<img src='http://img.youtube.com/vi/". $vid->video_id ."/hqdefault.jpg' style='height: 161px;'/>
@@ -190,6 +193,7 @@ class Fanpage extends CI_Controller {
 				elseif($vid->type == "facebook") :
 					echo('<span class="fp-imagini-style">
 							<a href="https://www.facebook.com/video/embed?video_id='. $vid->video_id .'" data-featherlight="iframe">
+								<span class="delete-img"><img src="' . base_url() . 'resources/images/delete_btn.png" /></span>
 								<span class="fp-imagini-descr">'. $vid->title .'</span>
 								<span class="video-hover"></span>
 								<img src="https://graph.facebook.com/'. $vid->video_id .'/picture" style="height: 161px; "/>
@@ -246,6 +250,11 @@ class Fanpage extends CI_Controller {
 						");
 				endforeach;
 			echo("</div>");
+	}
+
+	public function deleteImagine() {
+		$id = $this->input->post('item_id');
+		$this->mu_model->deleteFunction($id, 'fp_imagini');
 	}
 
 }
