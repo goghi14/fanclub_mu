@@ -147,15 +147,17 @@ class Fanpage extends CI_Controller {
 			endif;
 		if($imagini) : 
 			foreach($imagini as $img) :
-				$delete_icn = "<span data-id='".$img->id."' class='delete-fp-item'><img src='" . base_url() . "resources/images/delete_btn.png' title='Șterge' /></span>";
+				$delete_icn = "<span data-id='".$img->id."' class='delete-fp-item delete-fp-img'><img src='" . base_url() . "resources/images/delete_btn.png' title='Șterge' /></span>";
 				if($img->image == "") :
-					$img_display = "<span class='fp-imagini-style'><a class='thumbnail gallery' href='" . $img->url . "'><img src='" . base_url() . "timthumb.php?src=" . $img->url . "&w=220&h=150' />
+					$img_display = "<span class='fp-imagini-style'>
 						" . ($user['id'] == $this->input->post('id_user') ? $delete_icn : "") . "
+						<a class='thumbnail gallery' href='" . $img->url . "'><img src='" . base_url() . "timthumb.php?src=" . $img->url . "&w=220&h=150' />
 						<span class='fp-imagini-descr'>".$img->description."</span>
 						<span class='fp-imagini-zoom'><img src='".base_url()."resources/images/zoom.png'></span></a></span>";
 				else :
-					$img_display = "<span class='fp-imagini-style'><a class='thumbnail gallery' href='" . base_url() . "resources/images/fanpage/" . $img->image . "'><img src='" . base_url() . "timthumb.php?src=" . base_url() . "resources/images/fanpage/" . $img->image . "&w=220&h=150' />
+					$img_display = "<span class='fp-imagini-style'>
 						" . ($user['id'] == $this->input->post('id_user') ? $delete_icn : "") . "
+						<a class='thumbnail gallery' href='" . base_url() . "resources/images/fanpage/" . $img->image . "'><img src='" . base_url() . "timthumb.php?src=" . base_url() . "resources/images/fanpage/" . $img->image . "&w=220&h=150' />
 						<span class='fp-imagini-descr'>".$img->description."</span>
 						<span class='fp-imagini-zoom'><img src='".base_url()."resources/images/zoom.png'></span></a></span>";
 				endif;
@@ -182,31 +184,33 @@ class Fanpage extends CI_Controller {
 		if($video) :
 			foreach($video as $vid) :
 				$id = $vid->video_id;
+				$delete_icn = "<span data-id='". $vid->id ."' class='delete-fp-item delete-fp-video'><img src='" . base_url() . "resources/images/delete_btn.png' title='Șterge' /></span>";
 				if($vid->type == "youtube") :
 					echo("<span class='fp-imagini-style'>
-						<a href='https://www.youtube.com/embed/". $vid->video_id ."' data-featherlight='iframe'>
-							<span class='delete-img'><img src='" . base_url() . "resources/images/delete_btn.png' /></span>
+							" . ($user['id'] == $this->input->post('id_user') ? $delete_icn : "") . "
+							<a href='https://www.youtube.com/embed/". $vid->video_id ."' data-featherlight='iframe'>
 							<span class='fp-imagini-descr'>". $vid->title ."</span>
 							<span class='video-hover'></span>
 							<img src='http://img.youtube.com/vi/". $vid->video_id ."/hqdefault.jpg' style='height: 161px;'/>
 						</a></span>");
 				elseif($vid->type == "facebook") :
 					echo('<span class="fp-imagini-style">
+							' . ($user["id"] == $this->input->post("id_user") ? $delete_icn : "") . '
 							<a href="https://www.facebook.com/video/embed?video_id='. $vid->video_id .'" data-featherlight="iframe">
-								<span class="delete-img"><img src="' . base_url() . 'resources/images/delete_btn.png" /></span>
-								<span class="fp-imagini-descr">'. $vid->title .'</span>
-								<span class="video-hover"></span>
-								<img src="https://graph.facebook.com/'. $vid->video_id .'/picture" style="height: 161px; "/>
+							<span class="fp-imagini-descr">'. $vid->title .'</span>
+							<span class="video-hover"></span>
+							<img src="https://graph.facebook.com/'. $vid->video_id .'/picture" style="height: 161px; "/>
 							</a>
 						</span>
 						');
 				elseif($vid->type == "vimeo") :
 					$thumbnail = unserialize(file_get_contents("http://vimeo.com/api/v2/video/". $vid->video_id .".php"));
 					echo('<span class="fp-imagini-style">
+							' . ($user["id"] == $this->input->post("id_user") ? $delete_icn : "") . '
 							<a href="https://player.vimeo.com/video/'. $vid->video_id .'" data-featherlight="iframe">
-								<span class="fp-imagini-descr">'. $vid->title .'</span>
-								<span class="video-hover"></span>
-								<img src="' . $thumbnail[0]['thumbnail_small'] .'" style="height: 161px;"/>
+							<span class="fp-imagini-descr">'. $vid->title .'</span>
+							<span class="video-hover"></span>
+							<img src="' . $thumbnail[0]['thumbnail_small'] .'" style="height: 161px;"/>
 							</a>
 						</span>
 						');
@@ -236,8 +240,10 @@ class Fanpage extends CI_Controller {
 					endif;
 				endif;
 				foreach ($citate as $citat) :
+					$delete_icn = "<span data-id='". $citat->id ."' class='delete-fp-citate'><img src='" . base_url() . "resources/images/delete_btn.png' title='Șterge' /></span>";
 					echo("
 							<div class='grid-item citat'>
+								" . ($user['id'] == $this->input->post('id_user') ? $delete_icn : '') . " 
 								<div class='quotes'><i class='fa fa-quote-left'></i></div>
 								<div class='asertiune'>
 									" . $citat->citat_text . "
@@ -255,6 +261,14 @@ class Fanpage extends CI_Controller {
 	public function deleteImagine() {
 		$id = $this->input->post('item_id');
 		$this->mu_model->deleteFunction($id, 'fp_imagini');
+	}
+	public function deleteVideo() {
+		$id = $this->input->post('item_id');
+		$this->mu_model->deleteFunction($id, 'fp_video');
+	}
+	public function deleteCitat() {
+		$id = $this->input->post('item_id');
+		$this->mu_model->deleteFunction($id, 'fp_citate');
 	}
 
 }

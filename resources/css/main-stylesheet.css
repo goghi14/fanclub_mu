@@ -2268,7 +2268,14 @@ li p {
     top: -6px;
     right: -6px;
     display: none;
-    z-index: 1111;
+    z-index:9999;
+}
+.delete-fp-citate {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    display: none;
+    cursor: pointer;
 }
 
 textarea,

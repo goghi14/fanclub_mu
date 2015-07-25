@@ -86,15 +86,17 @@
 									endif;
 									if($imagini) : 
 										foreach($imagini as $img) :
-											$delete_icn = "<span data-id='".$img->id."' class='delete-fp-item'><img src='" . base_url() . "resources/images/delete_btn.png' title='Șterge' /></span>";
+											$delete_icn = "<span data-id='".$img->id."' class='delete-fp-item delete-fp-img'><img src='" . base_url() . "resources/images/delete_btn.png' title='Șterge' /></span>";
 											if($img->image == "") :
-												$vsv = "<span class='fp-imagini-style'><a class='thumbnail gallery' href='" . $img->url . "'><img src='" . base_url() . "timthumb.php?src=" . $img->url . "&w=220&h=150' />
+												$vsv = "<span class='fp-imagini-style'>
 													" . ($user ? $delete_icn : "") . "
+													<a class='thumbnail gallery' href='" . $img->url . "'><img src='" . base_url() . "timthumb.php?src=" . $img->url . "&w=220&h=150' />
 													<span class='fp-imagini-descr'>".$img->description."</span>
 													<span class='fp-imagini-zoom'><img src='".base_url()."resources/images/zoom.png'></span></a></span>";
 											else :
-												$vsv = "<span class='fp-imagini-style'><a class='thumbnail gallery' href='" . base_url() . "resources/images/fanpage/" . $img->image . "'><img src='" . base_url() . "timthumb.php?src=" . base_url() . "resources/images/fanpage/" . $img->image . "&w=220&h=150' />
+												$vsv = "<span class='fp-imagini-style'>
 													" . ($user ? $delete_icn : "") . "
+													<a class='thumbnail gallery' href='" . base_url() . "resources/images/fanpage/" . $img->image . "'><img src='" . base_url() . "timthumb.php?src=" . base_url() . "resources/images/fanpage/" . $img->image . "&w=220&h=150' />
 													<span class='fp-imagini-descr'>".$img->description."</span>
 													<span class='fp-imagini-zoom'><img src='".base_url()."resources/images/zoom.png'></span></a></span>";
 											endif;

@@ -239,6 +239,17 @@
 			});
 		});
 
+		$(document).ready(function() {
+			$(document).on("mouseover", ".citat", function() {
+				$(this).find(".delete-fp-citate").fadeIn(300);
+			});
+		});
+		$(document).ready(function() {
+			$(document).on("mouseleave", ".citat", function() {
+				$(this).find(".delete-fp-citate").fadeOut(200);
+			});
+		});
+
 		$(document).ready(function(){
 		    $('.imagini').click(function() {
 		    	$('.fp-option').removeClass("active");
@@ -403,21 +414,70 @@
 	  	});
 
 	  	$(document).ready(function(){
-		  	$('.delete-fp-item').click(function (e) {
+		  	$(document).on("click", ".delete-fp-img", function(e) {
 		        var id = $(this).data("id"),
 		        	item = $(this);
 		        e.preventDefault();
-		        if(confirm('Esti sigur ca vreai sa stergi aceasta imagine?')) {
+		        if(confirm("Esti sigur?")) {
 			        $.ajax({
 			            type: 'post',
 			            url: '/fanpage/deleteImagine',
 			            data: { item_id: id},
 	    		            success: function () {
-			                item.closest('.fp-imagini-style').fadeOut(300);
+			                item.closest('.fp-imagini-style').fadeOut(600);
+			            }
+			        }); 
+		    	}
+		    	return false;
+		        e.preventDefault();
+		        e.stopPropagation();
+		        e.stopImmediatePropagation();
+	    	});
+	  	});
+	  	$(document).ready(function(){
+		  	$(document).on("click", ".delete-fp-video", function(e) {
+		        var id = $(this).data("id"),
+		        	item = $(this);
+		        e.preventDefault();
+		        if(confirm("Esti sigur?")) {
+			        $.ajax({
+			            type: 'post',
+			            url: '/fanpage/deleteVideo',
+			            data: { item_id: id},
+	    		            success: function () {
+			                item.closest('.fp-imagini-style').fadeOut(600);
 			            }
 			        });
 			    }
-	     	});
+		        e.preventDefault();
+        		e.stopPropagation();
+    			e.stopImmediatePropagation();
+	    	});
+	  	});
+
+	  	$(document).ready(function(){
+		  	$(document).on("click", ".delete-fp-citate", function(e) {
+		        var id = $(this).data("id"),
+		        	item = $(this);
+		        e.preventDefault();
+		        if(confirm("Esti sigur?")) {
+			        $.ajax({
+			            type: 'post',
+			            url: '/fanpage/deleteCitat',
+			            data: { item_id: id},
+    		            success: function () {
+			                item.closest('.citat').fadeOut(600, function() {
+			                	var $container = jQuery('#masonry-grid');
+								// initialize
+								$container.masonry('reloadItems');
+			                });
+			            }
+			        });
+			    }
+		        e.preventDefault();
+        		e.stopPropagation();
+    			e.stopImmediatePropagation();
+	    	});
 	  	});
 
 	  	$('#login-box').on("click", ":submit", function(e){
