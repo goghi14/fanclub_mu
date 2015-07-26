@@ -2137,6 +2137,15 @@ li p {
 	text-transform: uppercase;
   	font-family: Arial;
   	font-size: 15px;
+  	margin-bottom: 10px;
+}
+#fp-block > .fp-comments h6 {
+    text-align: center; 
+	margin-right: 15px;
+	cursor: pointer;
+}
+#fp-block > .fp-comments h6:hover {
+	color: #C12026;
 }
 #fp-block > .fp-comments > .fp-com-content {
   	height: 100px;
@@ -2276,6 +2285,35 @@ li p {
     right: -4px;
     display: none;
     cursor: pointer;
+}
+.add-com-box {
+	width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+    border: 1px solid #ddd;
+    padding: 15px 10px 6px;
+    margin-top: -7px;
+}
+.add-com-box select {
+    padding: 4px 11px;
+    margin-left: 10px;
+}
+.add-com-box textarea {
+	width: 500px;
+    font-family: Arial;
+    padding: 4px;
+    margin-left: 2px;
+}
+.add-com-box input[type=submit] {
+	width: 120px;
+    margin-top: 4px;
+    margin-left: 41%;
+}
+.rating-fp-coms img {
+    margin-top: -1px;
+    margin-left: 1px;
+    width: 14px;
 }
 
 textarea,

@@ -212,6 +212,7 @@
 		    	$('.fp-option').removeClass("active");
 		    	$('.imagini').addClass("active");
 			    var userID = $(this).data("id");
+			    $('.fp_user_id').val(userID);
 			    $.ajax(
 			    {
 				    url: "/fanpage/getImagini",
@@ -221,7 +222,24 @@
 			            $(".fp-result").html(data);
 			    }
 			    });
+			    $.ajax(
+			    {
+				    url: "/fanpage/getComentarii",
+				    type: "POST",
+				    data: { id_user: userID},
+				    success: function (data) {
+			            $(".fp-com-content").html(data);
+			    }
+			    });
 			});
+		});
+
+		jQuery(".add-fp-comments").click(function() {
+			if($('.add-com-box').is(":visible")) {
+				$('.add-com-box').slideUp(500);
+			} else {
+				$('.add-com-box').slideDown(500);
+			}
 		});
 
 		$(document).ready(function() {

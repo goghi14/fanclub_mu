@@ -196,6 +196,15 @@ class Mu_model extends CI_Model {
         );
         $this->db->insert('fp_citate',$data);
     }
+    function insertFpComentariu($author, $fp_id) {
+        $data = array(
+        'nume'=>$author,
+        'comentariu'=>$this->input->post('fp_coment'),
+        'rating'=>$this->input->post('rating'),
+        'user_id'=>$this->input->post('fp_id'),
+        );
+        $this->db->insert('fp_comentarii',$data);
+    }
 
     function insertComment()
     {

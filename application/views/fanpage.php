@@ -8,10 +8,14 @@
 							<div class="chat-box">
 							</div>
 							<div class="chat-box-type">
-								<form class="chat-form" enctype="multipart/form-data" action="" method="post">
-									<textarea class="chat-area" name="chat_text" placeholder="Scrie mesaj..."></textarea>
-									<input type="submit" name="submit_chat" value="Trimite" />
-								</form>
+								<?php if($user) : ?>
+									<form class="chat-form" enctype="multipart/form-data" action="" method="post">
+										<textarea class="chat-area" name="chat_text" placeholder="Scrie mesaj..."></textarea>
+										<input type="submit" name="submit_chat" value="Trimite" />
+									</form>
+								<?php else : ?>
+									<p class="contact-info" style="background-color: #FFE4E4; padding: 10px 5px;"><span class="required"><i class="fa fa-info"></i></span> Pentru a scri in chat este necesar sa fii autentificat.</p>	
+								<?php endif; ?>
 							</div>
 							<!-- <div class="feedback">trimis</div> -->
 						<!-- END Chat -->
@@ -113,43 +117,52 @@
 						</div>
 						<div class="fp-comments">
 							<h3>Comentarii:</h3>
+							<div class="clear-float"></div>
 							<div class="fp-com-content">
-								<div class="fp-com">
-									<div class="username">
-										<strong>Grigore Dodon</strong> &nbsp;&nbsp;
-										Rating acordat: *****
-									</div>
-									<div class="comment">
-										Imi place ce ai adunat aici!!! Poza cu George Best e foarte tare!
-									</div> 
-								</div>
-								<div class="fp-com">
-									<div class="username">
-										<strong>Grigore Dodon</strong> &nbsp;&nbsp;
-										Rating acordat: *****
-									</div>
-									<div class="comment">
-										Imi place ce ai adunat aici!!! Poza cu George Best e foarte tare!
-									</div> 
-								</div>
-								<div class="fp-com">
-									<div class="username">
-										<strong>Grigore Dodon</strong> &nbsp;&nbsp;
-										Rating acordat: *****
-									</div>
-									<div class="comment">
-										Imi place ce ai adunat aici!!! Poza cu George Best e foarte tare!
-									</div> 
-								</div>
-								<div class="fp-com">
-									<div class="username">
-										<strong>Grigore Dodon</strong> &nbsp;&nbsp;
-										Rating acordat: *****
-									</div>
-									<div class="comment">
-										Imi place ce ai adunat aici!!! Poza cu George Best e foarte tare!
-									</div> 
-								</div>
+								<?php if($fp_comentarii) :
+									foreach($fp_comentarii as $com) : ?>
+										<div class="fp-com">
+											<div class="username">
+												<strong><?php echo $com->nume; ?></strong> &nbsp;&nbsp;
+												<?php if($com->rating != 0) : ?>
+													Rating acordat: <span class="rating-fp-coms">
+													<?php for($i=0;$i<$com->rating;$i++) :
+															print("<img src='" . base_url() . "resources/images/icon_star.png'>");
+														endfor;
+													?></span>
+												<?php endif; ?>
+											</div>
+											<div class="comment">
+												<?php echo $com->comentariu; ?> 
+											</div> 
+										</div>
+									<?php endforeach;
+								else : 
+									echo("<p>Aceasta colectie nu are nici un comentariu. Scrie tu primul!</p>");
+								endif; ?>
+							</div>
+							<hr style="width: 99%; border: 1px solid #E0E0E0; margin-left:0;">
+							<h6 class="add-fp-comments"><i class="fa fa-comments-o"></i> Adauga comentariu</h6>
+							<div class="add-com-box">
+								<?php if($user) : ?>
+									<form class="add-fp-form" enctype="multipart/form-data" action="<?php echo base_url();?>fanpage" method="post">
+										<input type="hidden" class="fp_user_id" name="fp_id" value="<?php echo $fp_user_id; ?>" />
+										<label>Rating:</label>
+										<select name="rating">
+											<option>Alege...</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</select><br /><br />
+										<label>Mesajul:</label>
+										<textarea name="fp_coment" placeholder="Comentariul tau..."></textarea><br />
+										<input type="submit" name="submit_comentariu" value="Adaugă" />
+									</form>
+								<?php else : ?>
+									<p class="contact-info" style="background-color: #FFE4E4; padding: 10px 5px;"><span class="required"><i class="fa fa-info"></i></span> Pentru a scri un comentariu este necesar sa fii autentificat.</p>
+								<?php endif; ?>
 							</div>
 						</div>
 					</div>

@@ -67,8 +67,12 @@ class Fanpage extends CI_Controller {
 
 		if($user) :
 			$data['imagini'] = $this->mu_model->getByWhereStmt('fp_imagini', 'user_id', $user['id']);
+			$data['fp_comentarii'] = $this->mu_model->getByWhereStmt('fp_comentarii', 'user_id', $user['id']);
+			$data['fp_user_id'] = $user['id'];
 		else :
 			$data['imagini'] = $this->mu_model->getByWhereStmt('fp_imagini', 'user_id', $avlbl_users_id[0]);
+			$data['fp_comentarii'] = $this->mu_model->getByWhereStmt('fp_comentarii', 'user_id', $avlbl_users_id[0]);
+			$data['fp_user_id'] = $avlbl_users_id[0];
 		endif;			
 
 		if($this->input->post('submit_image')) :
@@ -95,6 +99,10 @@ class Fanpage extends CI_Controller {
 
 		if($this->input->post('submit_citat')) :
 			$this->mu_model->insertFpCitat($user['id']);
+			redirect('fanpage#fp');
+		endif;
+		if($this->input->post('submit_comentariu')) :
+			$this->mu_model->insertFpComentariu($user['name']);
 			redirect('fanpage#fp');
 		endif;
 
@@ -239,25 +247,52 @@ class Fanpage extends CI_Controller {
 							");
 					endif;
 				endif;
-				foreach ($citate as $citat) :
-					$delete_icn = "<span data-id='". $citat->id ."' class='delete-fp-citate'><img src='" . base_url() . "resources/images/delete_btn.png' title='Șterge' /></span>";
-					echo("
-							<div class='grid-item citat'>
-								" . ($user['id'] == $this->input->post('id_user') ? $delete_icn : '') . " 
-								<div class='quotes'><i class='fa fa-quote-left'></i></div>
-								<div class='asertiune'>
-									" . $citat->citat_text . "
+				if($citate) :
+					foreach ($citate as $citat) :
+						$delete_icn = "<span data-id='". $citat->id ."' class='delete-fp-citate'><img src='" . base_url() . "resources/images/delete_btn.png' title='Șterge' /></span>";
+						echo("
+								<div class='grid-item citat'>
+									" . ($user['id'] == $this->input->post('id_user') ? $delete_icn : '') . " 
+									<div class='quotes'><i class='fa fa-quote-left'></i></div>
+									<div class='asertiune'>
+										" . $citat->citat_text . "
+									</div>
+									<div class='clear-float'></div>
+									<div class='autor'>
+									- " . $citat->citat_autor . " 
+									</div>
 								</div>
-								<div class='clear-float'></div>
-								<div class='autor'>
-								- " . $citat->citat_autor . " 
-								</div>
-							</div>
-						");
-				endforeach;
+							");
+					endforeach;
+				else : 
+					echo("<p>Acest utlilizator nu are citate in colectia sa.</p>");
+				endif;
 			echo("</div>");
 	}
 
+	public function getComentarii() {
+		$id = $this->input->post('item_id');
+		$comentarii = $this->mu_model->getByWhereStmt('fp_comentarii', 'user_id', $this->input->post('id_user'));
+		if($comentarii) :
+			foreach($comentarii as $com) :	
+				$rtng = "";
+				for($i=0;$i<$com->rating;$i++) :
+					$rtng .= "<img src='" . base_url() . "resources/images/icon_star.png'>";
+				endfor;
+				echo('<div class="fp-com">
+					<div class="username">
+						<strong>' . $com->nume . '</strong> &nbsp;&nbsp;
+						' . (($com->rating != 0) ? "Rating acordat: <span class='rating-fp-coms'>" . $rtng . "</span>" : "") . '
+					</div>
+					<div class="comment">
+						' . $com->comentariu . '
+					</div> 
+				</div>');
+			endforeach;
+		else : 
+			echo("<p>Aceasta colectie nu are nici un comentariu. Scrie tu primul!</p>");
+		endif;
+	}
 	public function deleteImagine() {
 		$id = $this->input->post('item_id');
 		$this->mu_model->deleteFunction($id, 'fp_imagini');
