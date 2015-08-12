@@ -78,7 +78,10 @@
 							<span><img src="<?php echo base_url(); ?>resources/images/avatars/thumbnails/<?php echo ($getUser->avatar); ?>" alt="<?php echo $user['name']; ?>" /></span>
 							<span class="hello-user">
 								Salut <?php echo $user['name']; ?>! | 
-								<a href="#" data-id="<?php echo $user['id']; ?>" class="user-id">&nbsp;Profilul meu</a> | 
+								<a href="#" data-id="<?php echo $user['id']; ?>" class="user-id">&nbsp;Profilul meu</a> |
+								<?php if($user['class'] >= 80) : ?>
+								 	<a href="#" class="controlpanel-link">&nbsp;Control Panel</a> |
+							 	<?php endif; ?>
 								<a href="<?php echo base_url(); ?>logout">&nbsp;Iesire</a>
 							</span>
 							</div>
@@ -234,4 +237,64 @@
 						Logheaza-te acum pentru mai multe beneficii!
 					</div>
 				</div>
-			
+
+				<?php if($user['class']>=80) : ?>
+					<div id="controlpanel">
+						<div class="box">
+							<img src="<?php echo base_url(); ?>resources/images/button_cancel.png" class="img" id="close-cp" />
+							<div class="cp-btn orarul-meciurilor">Orarul meciurilor</div>
+							<div class="cp-btn reset-scor">Reseteaza scorul la meciul curent</div>
+							<div class="cp-btn reset-tabel">Reseteaza tabela</div>
+							<div class="cp-btn creaza-sondaj">Creeaza un sondaj</div>
+						</div>
+					</div>
+
+					<div id="fixtures">
+						<div class="fx-box">
+							<img src="<?php echo base_url(); ?>resources/images/button_cancel.png" class="img" id="close-fixtures" />
+							<span class="fx-menu">
+							[ <i class="fa fa-plus"></i> <span class="fx-menu-txt">Adauga Meci</span> ]
+							</span>
+							
+							<form class="add-fixture" enctype="multipart/form-data" action="" method="post">
+								<table style="width: 800px">
+									<tr>
+										<td style="width: 213px"><input type="text" name="echipa" placeholder="Echipa Adversara" style="width: 185px" /></td>
+										<td style="width: 80px"><input type="text" name="data" placeholder="Data" style="width: 52px" /></td>
+										<td style="width: 65px"><input type="text" name="ora" placeholder="Ora" style="width: 37px" /></td>
+										<td style="width: 82px"><select name="type"><option value="Home">Home</option><option value="Away">Away</option><option value="Neutral">Neutral</option></select></td>
+										<td style="width: 180px"><input type="text" name="cupa" placeholder="Campionatul" style="width: 152px" /></td>
+										<td><input type="submit" name="submit_fixture" value="Adaugă" /></td>								
+									</tr>
+								</table>
+							</form>
+
+							<table>
+								<tr>
+									<th>Nr.</th>
+									<th>Echipa adversara</th>
+									<th>Data</th>
+									<th>Ora</th>
+									<th>Scor</th>
+									<th>Locatie</th>
+									<th>Campionatul</th>
+									<th>Sterge</th>
+								</tr>
+								<?php foreach($fixtures as $key => $fixture) : ?>
+									<tr class="fixt-tr" data-id="<?php echo $fixture->id; ?>">
+										<td><?php echo $key=$key+1; ?></td>
+										<td class="fxt-play-with"><?php echo $fixture->play_with; ?></td>
+										<td class="fxt-date"><?php echo $fixture->date; ?></td>
+										<td class="fxt-hr"><?php echo $fixture->hour; ?></td>
+										<td class="fxt-scor"><?php echo $fixture->scor; ?></td>
+										<td class="fxt-type"><?php echo $fixture->type; ?></td>
+										<td class="fxt-cup"><?php echo $fixture->cup; ?></td>
+										<td></td>
+									</tr>
+								<?php endforeach; ?>
+							</table>
+						</div>
+					</div>
+				<?php endif; ?>
+
+

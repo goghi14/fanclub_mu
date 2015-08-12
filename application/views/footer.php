@@ -30,6 +30,7 @@
 		<script type="text/javascript" src="<?php echo base_url(); ?>resources/jscript/lightbox.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>resources/jscript/jquery-popup.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>resources/jscript/masonry.pkgd.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>resources/jscript/jquery.jeditable.js"></script>
 
 
 	<!-- END body -->

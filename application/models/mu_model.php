@@ -118,6 +118,30 @@ class Mu_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    function getFixtures()
+    {
+        $this->db->select('*');
+        $this->db->from('fixtures');
+        $this->db->order_by("date", "asc");
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function getFixturesDesc()
+    {
+        $this->db->select('*');
+        $this->db->from('fixtures');
+        $this->db->order_by("date", "desc");
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function updateFixtureRow($column, $post_class)
+    {
+        $data = array(
+        $column=>$this->input->post($post_class),
+        );
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('fixtures',$data);
+    }
     function getArticleByUrl($url) 
     {
         $this->db->select('*');
@@ -216,6 +240,20 @@ class Mu_model extends CI_Model {
         'added_date'=>our_date(),
         );
         $this->db->insert('comments',$data);
+    }
+
+    function insertFixture() {
+        $data = array(
+        'type'=>$this->input->post('type'),
+        'play_with'=>$this->input->post('echipa'),
+        'play_with_logo'=>strtolower(str_replace(" ", "-", preg_replace("/(?![-])\p{P}/u", "", $this->input->post('echipa')))) . ".png",
+        'scor'=>"? - ?",
+        'date'=>$this->input->post('data'),
+        'hour'=>$this->input->post('ora'),
+        'cup'=>$this->input->post('cupa'),
+        'season_start'=>2015,
+        );
+        $this->db->insert('fixtures',$data);
     }
 
     function insertChatMsg($sender, $avatar)

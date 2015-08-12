@@ -8,17 +8,17 @@
 							<div class="match-widget">
 								<a href="#" class="upper-title">VEZI ORARUL INTREG<i class="fa fa-caret-right"></i></a>
 								<div class="match-teams">
-									<img style="float:left;" src="<?php echo base_url(); ?>resources/images/teams-logo/manutd-logo.png" alt="Manchester United" />
-									<span class="side-score">2 - 1</span>
-									<img style="float: right; margin-right: 11px;" src="<?php echo base_url(); ?>resources/images/teams-logo/leicester-logo.png" alt="Leicester" />
+									<img style="float:left;" src="<?php echo base_url(); ?>resources/images/teams-logo/manchester-united.png" alt="Manchester United" />
+									<span class="side-score"><?php echo $last_score; ?></span>
+									<img style="float: right; margin-right: 11px;" src="<?php echo base_url(); ?>resources/images/teams-logo/<?php echo $last_team_logo; ?>" alt="<?php echo $last_team; ?>" />
 								</div>
 								<div class="match-info">
 									<img src="<?php echo base_url(); ?>resources/images/calendar-icon.png" alt="calendar" />
-									<span>31 ianuarie 2015</span>
+									<span><?php echo $last_game_date; ?></span>
 									<img src="<?php echo base_url(); ?>resources/images/clock-icon.png" alt="clock" />
-									<span>17:00</span>
+									<span><?php echo $last_game_hr; ?></span>
 									<img src="<?php echo base_url(); ?>resources/images/cup-icon.png" alt="cup" />
-									<span>Premier League</span>
+									<span><?php echo $last_game_cup; ?></span>
 								</div>
 								<div class="match-buttons">
 									<div class="btn">
@@ -36,20 +36,27 @@
 							<div class="w-title">
 								<h3>Urmatorul Meci</h3>
 							</div>
+
 							<div class="banner">
 								<a href="#" class="upper-title">VEZI ORARUL INTREG<i class="fa fa-caret-right"></i></a>
 								<div class="match-teams">
-									<img style="float:left;" src="<?php echo base_url(); ?>resources/images/teams-logo/manutd-logo.png" alt="Manchester United" />
-									<span class="side-score">? - ?</span>
-									<img style="float: right; margin-right: 11px;" src="<?php echo base_url(); ?>resources/images/teams-logo/cambridge-united-logo.png" alt="Cambridge United" />
+									<?php if($gn_type == "Home") : ?>
+										<img style="float:left;" src="<?php echo base_url(); ?>resources/images/teams-logo/manchester-united.png" alt="Manchester United" />
+										<span class="side-score"><?php echo $next_score; ?></span>
+										<img style="float: right; margin-right: 11px;" src="<?php echo base_url(); ?>resources/images/teams-logo/<?php echo $next_team_logo; ?>" alt="<?php echo $next_team; ?>" />
+									<?php elseif($gn_type == "Away") : ?>
+										<img style="float: left;" src="<?php echo base_url(); ?>resources/images/teams-logo/<?php echo $next_team_logo; ?>" alt="<?php echo $next_team; ?>" />
+										<span class="side-score"><?php echo $next_score; ?></span>
+										<img style="float: right; margin-right: 11px;" src="<?php echo base_url(); ?>resources/images/teams-logo/manchester-united.png" alt="Manchester United" />
+									<?php endif; ?>
 								</div>
 								<div class="match-info">
 									<img src="<?php echo base_url(); ?>resources/images/calendar-icon.png" alt="calendar" />
-									<span>3 Februarie 2015</span>
+									<span><?php echo $next_game_date; ?></span>
 									<img src="<?php echo base_url(); ?>resources/images/clock-icon.png" alt="clock" />
-									<span>21:45</span>
+									<span><?php echo $next_game_hr; ?></span>
 									<img src="<?php echo base_url(); ?>resources/images/cup-icon.png" alt="cup" />
-									<span>FA Cup</span>
+									<span><?php echo $next_game_cup; ?></span>
 								</div>
 								<div class="match-buttons">
 									<div class="btn-inactive">

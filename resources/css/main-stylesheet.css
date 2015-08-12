@@ -2315,6 +2315,118 @@ li p {
     margin-left: 1px;
     width: 14px;
 }
+#controlpanel {
+    background-color: rgba(0,0,0,0.7);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none; 
+    top: 0;
+    left: 0;
+}
+#controlpanel > .box {
+	left: 36%;
+    top: 30%;
+    margin-top: -80px;
+    position: absolute;
+    background: #FCFCFC;
+    padding: 40px 50px;
+    color: #000;
+    z-index: 1000;
+    border: 3px solid #C12026;
+}
+#controlpanel > .box > .cp-btn {
+	background: #292A32;
+    color: #fff;
+    text-align: center;
+    width: 260px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    cursor: pointer;	
+}
+#controlpanel > .box > .cp-btn:hover {
+	background: #C12026;
+}
+#close-cp {
+	margin: -40px -50px;
+}
+
+/*     Fixtures    */
+#fixtures {
+    background-color: rgba(0,0,0,0.7);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: none;
+}
+#fixtures > .fx-box {
+    position: absolute;
+    background-color: #fff;
+    top: 30%;
+    left: 20%;
+    width: 800px;
+    padding: 15px 10px;
+}
+#close-fixtures {
+	margin: -15px -11px;
+}
+#fixtures > .fx-box table {
+	width: 100%;
+	text-align: left;
+	margin-top: 15px;
+}
+
+#fixtures > .fx-box tr {
+	height: 27px;
+}
+#fixtures > .fx-box th {
+	background: #C12026;
+	color: #fff;
+	padding: 6px;
+	border: 1px solid #C3C3C3;
+}
+#fixtures > .fx-box td {
+	padding: 6px;
+	border: 1px solid #C3C3C3;
+}
+.edit-fixt-btn {
+	text-align: center;
+	cursor: pointer;
+}
+.edit-fixt-btn:hover {
+	color: #C12026;
+}
+#fixtures > .fx-box > .fx-menu {
+	cursor: pointer;
+}
+#fixtures > .fx-box > .fx-menu:hover {
+	color: #C12026;
+}
+.add-fixture {display: 	none;}
+.add-fixture input[type=text] {
+    margin:0;
+}
+.add-fixture input[type=submit] {
+    width: 100px;
+    margin-top: 0px;
+    margin-left: 0;
+}
+.add-fixture select {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    color: #776F6F;
+}
+.add-fixture td {
+	vertical-align: middle;	
+}
+.fixture-table {
+	overflow: auto;
+	max-height: 50px;
+}
 
 textarea,
 input[type=text] {

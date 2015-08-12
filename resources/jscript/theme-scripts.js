@@ -234,12 +234,76 @@
 			});
 		});
 
+		jQuery(".controlpanel-link").click(function() {
+			$("#controlpanel").show();
+		});
+		jQuery("#close-cp").click(function() {
+			$("#controlpanel").hide();
+		});		
+
 		jQuery(".add-fp-comments").click(function() {
 			if($('.add-com-box').is(":visible")) {
 				$('.add-com-box').slideUp(500);
 			} else {
 				$('.add-com-box').slideDown(500);
 			}
+		});
+
+		jQuery(".orarul-meciurilor").click(function() {
+			$("#fixtures").fadeIn();	
+			$("#controlpanel").fadeOut();
+		});
+		jQuery("#close-fixtures").click(function() {
+			$("#controlpanel").fadeIn();
+			$("#fixtures").fadeOut();	
+		});
+		jQuery(".fx-menu").click(function() {
+			if($(".add-fixture").is(":visible")) {
+				$(".add-fixture").hide();
+				$(".fx-menu-txt").text("Adauga Meci");
+			} else {
+				$(".add-fixture").show();
+				$(".fx-menu-txt").text("Ascunde");
+			}
+		});
+
+
+		$(document).ready(function() {
+     		$('.fxt-play-with').click(function(){
+	     		$(this).editable('/fixtures/playWith', {
+			         name : 'play-with-post',
+			         tooltip   : 'Click to edit...',
+			         submitdata : {id: $(this).closest('tr').data('id') } 
+			    });
+ 			});
+ 			$('.fxt-date').click(function(){
+	     		$(this).editable('/fixtures/date', {
+			         name : 'date-post',
+			         tooltip   : 'Click to edit...',
+			         submitdata : {id: $(this).closest('tr').data('id') } 
+			    });
+ 			});
+ 			$('.fxt-hr').click(function(){
+	     		$(this).editable('/fixtures/hr', {
+			         name : 'hr-post',
+			         tooltip   : 'Click to edit...',
+			         submitdata : {id: $(this).closest('tr').data('id') } 
+			    });
+ 			});
+ 			$('.fxt-scor').click(function(){
+	     		$(this).editable('/fixtures/scor', {
+			         name : 'scor-post',
+			         tooltip   : 'Click to edit...',
+			         submitdata : {id: $(this).closest('tr').data('id') } 
+			    });
+ 			});
+ 			$('.fxt-cup').click(function(){
+	     		$(this).editable('/fixtures/cup', {
+			         name : 'cup-post',
+			         tooltip   : 'Click to edit...',
+			         submitdata : {id: $(this).closest('tr').data('id') } 
+			    });
+ 			});
 		});
 
 		$(document).ready(function() {
@@ -280,6 +344,17 @@
 				    data: { id_user: userID},
 				    success: function (data) {
 			            $(".fp-result").html(data);
+			    }
+			    });
+			});
+		});
+		$(document).ready(function(){
+			$('.reset-scor').click(function() {
+				$.ajax(
+			    {
+				    url: "/home/scoreReset",
+				    success: function (data) {
+			            alert("Scorul a fost resetat!");
 			    }
 			    });
 			});
